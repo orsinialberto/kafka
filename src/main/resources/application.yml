@@ -1,0 +1,19 @@
+server:
+  port: 9000
+
+spring:
+  profiles:
+    active: development
+  application:
+    name: Demo Kafka
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: demo-kafka
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
