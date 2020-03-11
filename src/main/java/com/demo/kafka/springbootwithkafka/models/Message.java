@@ -5,12 +5,8 @@ import java.util.Objects;
 public class Message {
 
   private String message;
-  private Long ts;
 
-  public Message(String message, Long ts) {
-    this.message = message;
-    this.ts = ts;
-  }
+  private Long timestamp;
 
   public String getMessage() {
     return message;
@@ -20,12 +16,12 @@ public class Message {
     this.message = message;
   }
 
-  public Long getTs() {
-    return ts;
+  public Long getTimestamp() {
+    return timestamp;
   }
 
-  public void setTs(Long ts) {
-    this.ts = ts;
+  public void setTimestamp(Long timestamp) {
+    this.timestamp = timestamp;
   }
 
   @Override
@@ -34,19 +30,19 @@ public class Message {
     if (!(o instanceof Message)) return false;
     Message message1 = (Message) o;
     return Objects.equals(message, message1.message) &&
-      Objects.equals(ts, message1.ts);
+      Objects.equals(timestamp, message1.timestamp);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(message, ts);
+    return Objects.hash(message, timestamp);
   }
 
   @Override
   public String toString() {
     return "Message{" +
       "message='" + message + '\'' +
-      ", ts=" + ts +
+      ", ts=" + timestamp +
       '}';
   }
 }

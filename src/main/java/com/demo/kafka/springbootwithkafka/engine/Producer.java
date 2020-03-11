@@ -8,26 +8,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import static java.util.Objects.requireNonNull;
+
 @Service
 public class Producer {
 
-  private static final Logger logger = LoggerFactory.getLogger(Producer.class);
-  private static final String TOPIC = "demo";
+  private static final Logger LOGGER = LoggerFactory.getLogger(Producer.class);
   private static final ObjectMapper MAPPER = new ObjectMapper();
 
-  @Autowired
-  private KafkaTemplate<String, String> kafkaTemplate;
+  private final KafkaTemplate<String, String> kafkaTemplate;
 
-  public void sendMessage(final Object message) {
+  @Autowired
+  public Producer(final KafkaTemplate<String, String> kafkaTemplate) {
+    this.kafkaTemplate = kafkaTemplate;
+  }
+
+  public void sendMessageToTopic(final Object message, final String topic) {
     try {
+      requireNonNull(topic, "topic must not be null");
+
       final String kafkaMessage = MAPPER.writeValueAsString(message);
 
-      logger.info(String.format("producing message: %s", kafkaMessage));
+      LOGGER.info("send message {} to topic {}", kafkaMessage, topic);
 
-      this.kafkaTemplate.send(TOPIC, kafkaMessage);
+      this.kafkaTemplate.send(topic, kafkaMessage);
 
     } catch (JsonProcessingException e) {
-      logger.error("cannot parse message: ", e);
+      LOGGER.error("cannot parse message {} ", message, e);
     }
   }
 }

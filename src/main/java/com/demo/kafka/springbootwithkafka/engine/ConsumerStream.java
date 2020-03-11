@@ -10,10 +10,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class ConsumerStream {
 
-  private static final Logger logger = LoggerFactory.getLogger(ConsumerStream.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ConsumerStream.class);
 
   @StreamListener
   public void requestListener(final @Input(MessageBinding.REQUESTS_IN) KStream<String, String> requestsIn) {
-    requestsIn.foreach((key, value) -> logger.info(String.format("CONSUMER STREAM has consumed message with key: %s and value %s", key, value)));
+    requestsIn.foreach((key, value) ->
+      LOGGER.info("CONSUMER STREAM has consumed message with key: {} and value {}", key, value));
   }
 }

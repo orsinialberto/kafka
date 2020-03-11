@@ -3,10 +3,10 @@ package com.demo.kafka.springbootwithkafka.controllers;
 import com.demo.kafka.springbootwithkafka.engine.Producer;
 import com.demo.kafka.springbootwithkafka.models.Message;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import static java.lang.System.currentTimeMillis;
 
 @RestController
 @RequestMapping(value = "/kafka")
@@ -15,15 +15,16 @@ public class KafkaController {
   private final Producer producer;
 
   @Autowired
-  public KafkaController(Producer producer) {
+  public KafkaController(final Producer producer) {
     this.producer = producer;
   }
 
   @PostMapping(value = "/publish")
-  public void sendMessageToKafkaTopic(final @RequestBody String message) {
+  @ResponseStatus(HttpStatus.ACCEPTED)
+  public void sendMessageToKafkaTopic(@RequestBody final Message message, @RequestParam final String topic) {
 
-    final Message kafkaMessage = new Message(message, System.currentTimeMillis());
+    message.setTimestamp(currentTimeMillis());
 
-    this.producer.sendMessage(kafkaMessage);
+    this.producer.sendMessageToTopic(message, topic);
   }
 }

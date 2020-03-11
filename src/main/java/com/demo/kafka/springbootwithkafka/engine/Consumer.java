@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class Consumer {
 
-    private static final Logger logger = LoggerFactory.getLogger(Producer.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Consumer.class);
 
     @KafkaListener(topics = "demo", groupId = "demo_kafka")
     public void consume(final String message) {
-      logger.info(String.format("CONSUMER has consumed message: %s", message));
+      LOGGER.info("CONSUMER has consumed message: {}", message);
     }
 
 }
