@@ -24,10 +24,13 @@ public class Producer {
   }
 
   public void sendMessageToTopic(final Object message, final String topic) {
-    try {
-      requireNonNull(topic, "topic must not be null");
 
-      final String kafkaMessage = MAPPER.writeValueAsString(message);
+    requireNonNull(topic, "topic must not be null");
+    requireNonNull(message, "message must not be null");
+
+    try {
+
+      final var kafkaMessage = MAPPER.writeValueAsString(message);
 
       LOGGER.info("send message {} to topic {}", kafkaMessage, topic);
 

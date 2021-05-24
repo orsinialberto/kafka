@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import static java.lang.System.currentTimeMillis;
 
 @RestController
-@RequestMapping(value = "/kafka")
+@RequestMapping(value = "/spring-boot-with-kafka")
 public class KafkaController {
 
   private final Producer producer;
@@ -19,9 +19,9 @@ public class KafkaController {
     this.producer = producer;
   }
 
-  @PostMapping(value = "/publish")
+  @PostMapping(value = "/topic/{topic}/send-message")
   @ResponseStatus(HttpStatus.ACCEPTED)
-  public void sendMessageToKafkaTopic(@RequestBody final Message message, @RequestParam final String topic) {
+  public void sendMessageToKafkaTopic(@RequestBody final Message message, @PathVariable final String topic) {
 
     message.setTimestamp(currentTimeMillis());
 

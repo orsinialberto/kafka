@@ -1,0 +1,72 @@
+openapi: 3.0.2
+info:
+  version: 1.0.0
+  title: Spring Boot with Kafka
+  description: >-
+    A simple example of how to produce and consume messages with kafka spring and kafka-stream.
+servers:
+  - url: 'https://localhost:8080/spring-boot-with-kafka'
+tags:
+  - name: produce
+    description: Producing endpoint
+paths:
+  '/topic/{topic}/send-message':
+    post:
+      description: Send a generic message to a topic.
+      summary: Send message
+      operationId: postMessageToTopic
+      parameters:
+        - $ref: '#/components/parameters/topic'
+      requestBody:
+        description: The message object
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Message'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '400':
+          description: Bad Request
+      tags:
+        - produce
+components:
+  parameters:
+    topic:
+      name: topic
+      in: path
+      description: The recipient topic of the message
+      schema:
+        type: string
+        format: string
+      required: true
+  schemas:
+    Message:
+      type: object
+      properties:
+        name:
+          type: string
+          description: the name of the message
+        description:
+          type: string
+          nullable: true
+          description: the description of the message
+      required:
+        - name
+    MessageResponse:
+      allOf:
+        - $ref: '#/components/schemas/Message'
+        - type: object
+          properties:
+            date:
+              type: string
+              format: date-time
+              description: the date-time of the message
+              readOnly: true
+          required:
+            - id
