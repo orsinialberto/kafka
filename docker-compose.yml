@@ -3,6 +3,7 @@ version: '2'
 # exposed services:
 # - 2181: zookeeper
 # - 9092: kafka
+# - 8080: webapp
 
 services:
   zookeeper:
