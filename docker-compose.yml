@@ -1,27 +1,26 @@
 version: '2'
 
 # exposed services:
-# - 9004: zookeeper
+# - 2181: zookeeper
 # - 9092: kafka
 
 services:
   zookeeper:
-    image: zookeeper:3.4.9
-    restart: always
+    image: wurstmeister/zookeeper
     ports:
-      - 9004:2181
-    volumes:
-      - ./docker/data/zookeeper/data:/data
-      - ./docker/data/zookeeper/datalog:/datalog
+      - 2181:2181
 
   kafka:
     image: wurstmeister/kafka
     ports:
       - 9092:9092
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: 127.0.0.1
+      KAFKA_ADVERTISED_HOST_NAME: kafka
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-    depends_on:
-      - zookeeper
     volumes:
-      - ./docker/data/kafka:/tmp/kafka-logs
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  web-app:
+    build: .
+    ports:
+      - 8080:8080
