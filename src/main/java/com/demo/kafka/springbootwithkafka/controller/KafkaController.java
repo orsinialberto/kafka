@@ -1,7 +1,7 @@
-package com.demo.kafka.springbootwithkafka.controllers;
+package com.demo.kafka.springbootwithkafka.controller;
 
 import com.demo.kafka.springbootwithkafka.engine.Producer;
-import com.demo.kafka.springbootwithkafka.models.Message;
+import com.demo.kafka.springbootwithkafka.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

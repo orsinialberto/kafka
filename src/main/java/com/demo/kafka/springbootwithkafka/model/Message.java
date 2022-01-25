@@ -1,4 +1,4 @@
-package com.demo.kafka.springbootwithkafka.models;
+package com.demo.kafka.springbootwithkafka.model;
 
 import java.util.Objects;
 
