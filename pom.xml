@@ -8,11 +8,11 @@
 		<version>2.2.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.demo.kafka</groupId>
-	<artifactId>spring-boot-with-kafka</artifactId>
+	<groupId>com.example.orsinialberto</groupId>
+	<artifactId>kafka</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-boot-with-kafka</name>
-	<description>Demo project for Spring Boot and Kafka</description>
+	<name>kafka</name>
+	<description>Demo project for Spring Boot &amp; Kafka</description>
 
 	<properties>
 		<java.version>11</java.version>
