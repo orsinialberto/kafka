@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import static java.util.Objects.requireNonNull;
 
 @RestController
-@RequestMapping(value = "/spring-boot-with-kafka")
+@RequestMapping(value = "/kafka")
 public class KafkaController {
 
   private final Producer producer;
@@ -18,7 +18,7 @@ public class KafkaController {
     this.producer = producer;
   }
 
-  @PostMapping(value = "/topic/{topic}/send-message")
+  @PostMapping(value = "/topic/{topic}/send")
   @ResponseStatus(HttpStatus.ACCEPTED)
   public void sendMessageToKafkaTopic(@RequestBody final Object message, @PathVariable final String topic) {
 
