@@ -1,12 +1,11 @@
 package com.demo.kafka.springbootwithkafka.controller;
 
 import com.demo.kafka.springbootwithkafka.engine.Producer;
-import com.demo.kafka.springbootwithkafka.model.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import static java.lang.System.currentTimeMillis;
+import static java.util.Objects.requireNonNull;
 
 @RestController
 @RequestMapping(value = "/spring-boot-with-kafka")
@@ -21,9 +20,10 @@ public class KafkaController {
 
   @PostMapping(value = "/topic/{topic}/send-message")
   @ResponseStatus(HttpStatus.ACCEPTED)
-  public void sendMessageToKafkaTopic(@RequestBody final Message message, @PathVariable final String topic) {
+  public void sendMessageToKafkaTopic(@RequestBody final Object message, @PathVariable final String topic) {
 
-    message.setTimestamp(currentTimeMillis());
+    requireNonNull(topic, "topic must not be null");
+    requireNonNull(message, "message must not be null");
 
     this.producer.sendMessageToTopic(message, topic);
   }
