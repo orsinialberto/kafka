@@ -1,6 +1,6 @@
 # springboot-kafka-docker
 
-Example of using springboot (2.2.4), kafka and docker (Java SE 11).
+Example of use springboot (2.2.4), kafka and docker (Java SE 11).
 
 `mvn clean package -Dmaven.test.skip=true`
 
